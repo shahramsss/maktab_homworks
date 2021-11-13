@@ -1,0 +1,59 @@
+from post.models import Post , Tag , Comment , Category
+from django.contrib.auth.models import User
+
+answer 1 :
+u = User.objects.get(username='sss')
+title = Post.objects.create(title = 'somthing is good' , shortdesc = 'sm' , desc='that is greate' ,owner = u )
+
+ 
+aswer 2 :
+tag = Tag.objects.create(title='mytag')
+title.tag.add(tag)
+
+answer 3 :
+title.tag.remove(tag1)
+title.tag.clear()
+
+answe 4 :
+comments = Comment.objects.create(post=title ,title='my title' , desc='description' , like=5  )
+category =Category.objects.create(title='cat_01')
+category2 =Category.objects.create(title='cat_01' , parent=category)
+
+answer 5 :
+question = models.ForeignKey(Question, on_delete=models.CASCADE , related_name = question)
+
+parent = models.ForeignKey(
+'self', on_delete=models.CASCADE, blank=True, null=True, related_name=my_parent)
+
+post = models.ForeignKey(Post, on_delete=models.CASCADE , related_name = my_post)
+
+category = models.ManyToManyField('Category' , related_name= my_category)
+
+
+
+
+answer 6 :
+first_query = Post.objects.filter(category__title__contains='P')
+Category.objects.filter(post__title__contains='p')
+
+
+title.category.add(Category.objects.create(title='subquery_test'))
+
+Post.objects.filter(tag__title__contains='g').delete()
+
+
+
+
+
+
+
+
+
+
+
+last question :
+blog = Blog(name='My blog', tagline='Blogging is easy')
+blog.save() # blog.pk == 1
+blog.pk = None
+blog._state.adding = True
+blog.save() # blog.pk == 2
